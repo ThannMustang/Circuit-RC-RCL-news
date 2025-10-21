@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions Circuits RC et RCL</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f4f7; margin: 0; padding: 0; display: flex; }
+        nav { width: 200px; background-color: #004466; color: white; height: 100vh; padding-top: 20px; position: fixed; }
+        nav ul { list-style: none; padding: 0; }
+        nav li { padding: 10px; cursor: pointer; }
+        nav li:hover { background-color: #006699; }
+        main { margin-left: 200px; padding: 20px; max-width: 900px; }
+        h2 { color: #004466; }
+        .section { background-color: #e8eef2; padding: 10px; border-left: 5px solid #004466; margin-bottom: 15px; }
+        .question { background-color: #fff7e6; padding: 10px; border-left: 5px solid #ffa500; margin-bottom: 10px; }
+        .solution { background-color: #e2f7e2; padding: 10px; border-left: 5px solid #28a745; margin-bottom: 10px; display: none; }
+        button { margin-top: 5px; padding: 5px 10px; cursor: pointer; }
+        footer { background-color: #004466; color: white; text-align: center; padding: 10px 0; margin-top: 20px; }
+        pre { background-color: #dcebf7; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li onclick="showSection('cours')">Cours</li>
+            <li onclick="showSection('questions')">Questions</li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="cours">
+            <h2>Révisions Circuits RC et RCL</h2>
+
+            <div class="section">
+                <h3>Circuits RC</h3>
+                <p>Un circuit RC contient une résistance (R) et un condensateur (C). La tension aux bornes du condensateur évolue de manière exponentielle :</p>
+                <pre>Charge: V(t) = V0 * (1 - e^(-t/(R*C)))
+Décharge: V(t) = V0 * e^(-t/(R*C))</pre>
+                <p>Constante de temps: τ = R * C</p>
+            </div>
+
+            <div class="section">
+                <h3>Circuits RCL</h3>
+                <p>Un circuit RCL contient une résistance (R), une bobine (L) et un condensateur (C). L'équation différentielle est :</p>
+                <pre>L*d²i/dt² + R*di/dt + (1/C)*i = 0</pre>
+                <p>Le comportement dépend du régime:</p>
+                <ul>
+                    <li>Pseudo-périodique : oscillations décroissantes</li>
+                    <li>Aperiodique : retour rapide à l'équilibre sans oscillation</li>
+                    <li>Critique : transition entre pseudo-périodique et aperiodique</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="questions" style="display:none;">
+            <h2>Questions et Exercices</h2>
+            <p>Les réponses sont cachées. Cliquez sur "Voir la solution" après avoir réfléchi.</p>
+
+            <div id="questions-container"></div>
+        </section>
+
+        <footer>
+            <p>© 2025 Révisions Circuits RC et RCL - Basé sur votre cours PDF</p>
+        </footer>
+    </main>
+
+    <script>
+        function showSection(id) {
+            document.getElementById('cours').style.display = (id === 'cours') ? 'block' : 'none';
+            document.getElementById('questions').style.display = (id === 'questions') ? 'block' : 'none';
+        }
+
+        const questions = [
+            {q: 'Vrai ou Faux : Dans un circuit RC, la tension aux bornes du condensateur atteint toujours V0 instantanément.', a: 'Faux. La tension suit une courbe exponentielle.'},
+            {q: 'Vrai ou Faux : La constante de temps τ d\'un circuit RC est égale à R*C.', a: 'Vrai. τ = R*C par définition.'},
+            {q: 'Vrai ou Faux : Dans un circuit RCL pseudo-périodique, l\'oscillation ne décroît jamais.', a: 'Faux. Les oscillations décroissent progressivement.'},
+            {q: 'Vrai ou Faux : La bobine dans un circuit RCL stocke l\'énergie sous forme de champ magnétique.', a: 'Vrai.'},
+            {q: 'QCM : Formule tension condensateur en charge ? a) V0*e^(-t/(R*C)) b) V0*(1 - e^(-t/(R*C))) c) R*C/t', a: 'Réponse: b) V0*(1 - e^(-t/(R*C))'},
+            {q: 'Calcul : Condensateur 20 μF, résistance 2 kΩ. Constante de temps ?', a: 'τ = R*C = 2000 * 20e-6 = 0,04 s'},
+            {q: 'Calcul : Circuit RCL R=10Ω, L=0,5H, C=50μF. Régime ?', a: 'Pseudo-périodique (α << ω0).'},
+            {q: 'Calcul : Circuit RC R=1 kΩ, C=5 μF, V0=12V. Tension après 10 ms ?', a: 'V ≈ 10,4 V'},
+            {q: 'Calcul : RCL pseudo-périodique, L=0,2 H, C=100 μF. Fréquence oscillations ?', a: 'ωd ≈ 223,6 rad/s'},
+            {q: 'Calcul : Charge max condensateur 50 μF sous 10V ?', a: 'Q = 50e-6 * 10 = 5e-4 C'},
+            {q: 'Calcul : RC décharge, R=5 kΩ, C=10 μF, V0=5V, t=0,05 s ?', a: 'V ≈ 1,84 V'},
+            {q: 'Calcul : Circuit RCL critique, L=0,1 H, C=100 μF, R ?', a: 'R ≈ 632,46 Ω'},
+            {q: 'Calcul : Temps pour atteindre 95% tension finale, C=100μF, R=1 kΩ ?', a: 't ≈ 0,3 s'},
+            {q: 'Question : Dans RCL pseudo-périodique, si R doublée ?', a: 'Le circuit se rapproche du régime critique.'},
+            {q: 'Calcul : Énergie stockée condensateur 10 μF à 5 V ?', a: 'E = 0,5*C*V^2 = 125 μJ'},
+            {q: 'Calcul : Puissance dissipée R=100Ω, I=0,2A ?', a: 'P = I^2*R = 4 W'},
+            {q: 'Question : Dans RC série, variation courant pendant charge ?', a: 'Le courant décroît exponentiellement de I0 = V0/R vers 0'},
+            {q: 'QCM : Quel composant stocke l\'énergie électromagnétique ?', a: 'La bobine'},
+            {q: 'QCM : Quel composant stocke l\'énergie électrique ?', a: 'Le condensateur'},
+            {q: 'Vrai ou Faux : Dans un circuit RC, la décharge est exponentielle.', a: 'Vrai'}
+        ];
+
+        const container = document.getElementById('questions-container');
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'question';
+            div.innerHTML = `${index+1}. ${item.q}<br><button onclick=\"toggleSolution(${index+1})\">Voir la solution</button><div class='solution' id='sol${index+1}'>${item.a}</div>`;
+            container.appendChild(div);
+        });
+
+        function toggleSolution(num) {
+            const sol = document.getElementById('sol' + num);
+            sol.style.display = sol.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.onload = function() {
+            showSection('cours');
+        }
+    </script>
+</body>
+</html>
